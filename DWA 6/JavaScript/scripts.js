@@ -34,7 +34,7 @@ const authorFragment = document.createDocumentFragment();
 /** `data` contains an object that holds all of the references to necessary DOM elements so that we can easily work
  *  with the DOM elements in the JavaScript file.
  */
-const data = {
+export const data = {
   list: {
     items: document.querySelector("[data-list-items]"),
     button: document.querySelector("[data-list-button]"),
@@ -129,6 +129,9 @@ const createBookElement = ({ author, image, title, id }) => {
 
   return bookElement;
 };
+
+
+
 
 // Create the `renderBookList` function ↓
 
@@ -641,47 +644,7 @@ data.search.cancel.addEventListener("click", (event) => {
 
 */
 
-// Corrected the `day` and `night` objects ↓
-
-/** `day` contains the dark and light colours for the day theme */
-const day = {
-  dark: "10, 10, 20",
-  light: "255, 255, 255",
-};
-
-/** `night` contains the dark and light colours for the night theme */
-const night = {
-  dark: "255, 255, 255",
-  light: "10, 10, 20",
-};
-
-// Created the `setThemeToNight` function ↓
-
-/** Sets the theme to night */
-const setThemeToNight = () => {
-  document.documentElement.style.setProperty("--color-dark", night.dark);
-  document.documentElement.style.setProperty("--color-light", night.light);
-};
-
-// Created the `setThemeToDay` function ↓
-
-/** Sets the theme to day */
-const setThemeToDay = () => {
-  document.documentElement.style.setProperty("--color-dark", day.dark);
-  document.documentElement.style.setProperty("--color-light", day.light);
-};
-
-// Created the `checkDefaultTheme` function ↓
-
-/** Checks the users default browser theme */
-const checkDefaultTheme = () => {
-  // Start a ternary that checks if the user's default browser preferred theme is dark/night ↓
-
-  data.settings.theme.value === "night" &&
-  window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? setThemeToNight()
-    : setThemeToDay();
-};
+import { setThemeToNight, setThemeToDay, checkDefaultTheme } from "./themeUtils.js";
 
 // Call `checkDefaultTheme` to check the user's default browser theme ↓
 
