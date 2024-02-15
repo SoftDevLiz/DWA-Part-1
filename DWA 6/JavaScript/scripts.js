@@ -4,7 +4,7 @@
 
 */
 
-import { BOOKS_PER_PAGE, authors, genres, books } from "./data.js";
+import { BOOKS_PER_PAGE, authors, books } from "./data.js";
 import { setThemeToNight, setThemeToDay, checkDefaultTheme } from "./themeUtils.js";
 import { createAnyGenreOpt, populateGenreDropdown, createAnyAuthorOpt, populateAuthorDropdown } from "./searchDropdownUtils.js";
 
