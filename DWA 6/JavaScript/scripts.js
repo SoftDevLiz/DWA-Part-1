@@ -212,7 +212,6 @@ const identifyBook = (event) => {
  */
 const populatePreview = (activeBook) => {
   // Set the attributes and innerHTML of the preview overlay ↓
-
   data.list.image.setAttribute("src", activeBook.image);
   data.list.blur.setAttribute("src", activeBook.image);
   data.list.title.innerHTML = activeBook.title;
