@@ -175,58 +175,62 @@ renderBookList(initialPageResults, bookListFragment);
 
 */
 
-// Created the `activeBook` variable ↓
-
-/** `activeBook` holds the data of the unique book that the user has clicked on. */
 let activeBook = "";
 
-// Created the `identifyBook` function ↓
+const bookPreviewFactory = () => {
+  
 
-/** Identifies the `activeBook` the user has clicked on to view the preview.
- * @param {target} event - The event target that the user has clicked on.
- */
-const identifyBook = (event) => {
-  // Create the `element` and `previewId` variables ↓
+  /** Identifies the `activeBook` the user has clicked on to view the preview.
+  * @param {target} event - The event target that the user has clicked on.
+  */
+  const identifyBook = (event) => {
 
   /** `element` checks for the closest element that was clicked on which includes "[book-id]", returns true or false. */
   let element = event.target.closest("[book-id]");
   /** `previewId` is a ternary that checks if `element` is truthy, if so it gets the id attribute.*/
   let previewId = element ? element.getAttribute("book-id") : "";
-
-  // Start the for...of loop to loop through each book and get the id ↓
-
+    
+      
+    
   /** The below for...of loop loops through each book in the `books` array
-   * and checks to see if the id of the book strictly matches the id of the
-   * book that was clicked on. If it matches it assigns the `singleBook` to the `activeBook` variable. */
+  * and checks to see if the id of the book strictly matches the id of the
+  * book that was clicked on. If it matches it assigns the `singleBook` to the `activeBook` variable. */
   for (let singleBook of books) {
-    if (singleBook.id === previewId) {
+  if (singleBook.id === previewId) {
       activeBook = singleBook;
+      }
     }
   }
-};
 
-// Created the `populatePreview` function ↓
+  /** Populates the preview overlay with the `activeBook` data.
+  * @param {object} activeBook - The object containing the data of the unique book that the user has clicked on
+  */
+  const populatePreview = (activeBook) => {
 
-/** Populates the preview overlay with the `activeBook` data.
- * @param {object} activeBook - The object containing the data of the unique book that the user has clicked on
- */
-const populatePreview = (activeBook) => {
-  // Set the attributes and innerHTML of the preview overlay ↓
   data.list.image.setAttribute("src", activeBook.image);
   data.list.blur.setAttribute("src", activeBook.image);
   data.list.title.innerHTML = activeBook.title;
 
-  // Set the subtitle, description, and date of publish of the preview overlay ↓
+
 
   data.list.subtitle.innerHTML = `${authors[activeBook.author]} (${new Date(
     activeBook.published
   ).getFullYear()})`;
   data.list.description.innerHTML = activeBook.description;
 
-  // Set the style of the description so that it has a scrollbar if the description is too long ↓
+
 
   data.list.description.style.overflowY = "auto";
-};
+  };
+
+  return {
+      identifyBook: identifyBook,
+      populatePreview: populatePreview
+  }
+
+}
+
+const previewFactory = bookPreviewFactory();
 
 // Created the book preview event listener which calls the above functions ↓
 
@@ -234,11 +238,11 @@ const populatePreview = (activeBook) => {
 data.list.items.addEventListener("click", (event) => {
   // Call `identifyBook` to identify the book that was clicked on ↓
 
-  identifyBook(event);
+  previewFactory.identifyBook(event);
 
   // Call `populatePreview` to populate the preview with the book that was clicked on ↓
 
-  populatePreview(activeBook);
+  previewFactory.populatePreview(activeBook);
 
   // Display the active book preview overlay to the user ↓
 
