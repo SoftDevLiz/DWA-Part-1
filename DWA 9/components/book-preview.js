@@ -73,6 +73,7 @@ class BookPreviewComponent extends HTMLElement {
   constructor() {
     super();
     this.activeBook = "";
+
     this.identifyBook = (event) => {
 
       /** `element` checks for the closest element that was clicked on which includes "[book-id]", returns true or false. */
@@ -92,7 +93,7 @@ class BookPreviewComponent extends HTMLElement {
         }
     };
 
-    this.populatePreview = (activeBook) => {
+    this.populatePreview = (this.activeBook) => {
 
       data.list.image.setAttribute("src", this.activeBook.image);
       data.list.blur.setAttribute("src", this.activeBook.image);
