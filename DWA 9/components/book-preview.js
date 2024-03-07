@@ -93,7 +93,7 @@ class BookPreviewComponent extends HTMLElement {
         }
     };
 
-    this.populatePreview = (this.activeBook) => {
+    this.populatePreview = (activeBook) => {
 
       data.list.image.setAttribute("src", this.activeBook.image);
       data.list.blur.setAttribute("src", this.activeBook.image);
