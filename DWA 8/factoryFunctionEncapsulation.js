@@ -1,4 +1,4 @@
-let = activeBook = "";
+let activeBook = "";
 
 const bookPreviewFactory = () => {
     
