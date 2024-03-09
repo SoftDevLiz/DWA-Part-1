@@ -22,6 +22,7 @@
   .center_the_value {
     text-align: center;
     padding-bottom: 5rem;
+    padding-right: 3rem;
   }
   .value_field::part(base) {
     font-size: 2rem;
