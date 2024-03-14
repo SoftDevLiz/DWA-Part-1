@@ -1,4 +1,5 @@
-import { authors, genres, books } from "../JavaScript/data.js"
+import { books } from "../JavaScript/data.js"
+import { data } from "../JavaScript/scripts.js";
 
 const template = document.createElement("template")
 
@@ -84,7 +85,7 @@ class createBookElement extends HTMLElement {
     constructor () {
         const createBookElement = ({ author, image, title, id}) => {
 
-            const bookElement = document.createElement("button");
+          const bookElement = document.createElement("button");
             
                 bookElement
                 .setAttribute("book-id", id);
@@ -93,8 +94,21 @@ class createBookElement extends HTMLElement {
                 this.data.title.innerHTML = title;
                 this.data.author.innerHTML = author;
         }
-    }
 
+          const renderBookList = (object, fragment) => {
+
+            for (let { author, image, title, id } of object) {
+
+              const singleBook = createBookElement({id, image, title, author});
+
+              fragment.appendChild(singleBook);
+              data.list.items.appendChild(fragment);
+            }
+
+          }
+
+        }
+  
     connectedCallback () {
 
     }
