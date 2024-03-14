@@ -75,6 +75,11 @@ customElements.define('single-book-element',
 class createBookElement extends HTMLElement {
     inner = this.attachShadow({ mode: 'closed' });
    
+    data = {
+      img: this.querySelector("data-img"),
+      title: this.querySelector("data-title"),
+      author: this.querySelector("data-author")
+    }
 
     constructor () {
         const createBookElement = ({ author, image, title, id}) => {
@@ -84,12 +89,9 @@ class createBookElement extends HTMLElement {
                 bookElement
                 .setAttribute("book-id", id);
 
-                
-                
-
-                
-
-
+                this.data.img.innerHTML = image;
+                this.data.title.innerHTML = title;
+                this.data.author.innerHTML = author;
         }
     }
 
