@@ -88,7 +88,7 @@ export const data = {
 /** `initialPageResults` is an array of the initial 36 `BOOKS_PER_PAGE` from the user's search before they click 'show more'
  * in order to display the initial 36 results to the user.
  */
-export let initialPageResults = [];
+let initialPageResults = [];
 
 /** Extracts the `initialPageResults` (0 - 36 `BOOKS_PER_PAGE`) before the user clicks 'show more'.
  * @param {object} object - The object that you want to extract the initial results from.
