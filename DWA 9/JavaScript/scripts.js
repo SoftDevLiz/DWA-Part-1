@@ -8,6 +8,7 @@ import { BOOKS_PER_PAGE, authors, books } from "./data.js";
 import { setThemeToNight, setThemeToDay, checkDefaultTheme } from "./themeUtils.js";
 import { createAnyGenreOpt, populateGenreDropdown, createAnyAuthorOpt, populateAuthorDropdown } from "./searchDropdownUtils.js";
 
+
 /*
 
                                                                   DOCUMENT FRAGMENTS ↓
@@ -19,7 +20,7 @@ import { createAnyGenreOpt, populateGenreDropdown, createAnyAuthorOpt, populateA
 /** `searchResultsFragment` holds a document fragment to be used to display the search results */
 const searchResultsFragment = document.createDocumentFragment();
 /** `bookListFragment` holds a document fragment to be used for the book preview functionality */
-const bookListFragment = document.createDocumentFragment();
+export const bookListFragment = document.createDocumentFragment();
 /** `genreFragment` holds a document fragment that will contain a the list of genres for the genre dropdown list */
 export const genreFragment = document.createDocumentFragment();
 /** `authorFragment` holds a document fragment that will contain the authors for the dropdown list */
@@ -87,7 +88,7 @@ export const data = {
 /** `initialPageResults` is an array of the initial 36 `BOOKS_PER_PAGE` from the user's search before they click 'show more'
  * in order to display the initial 36 results to the user.
  */
-let initialPageResults = [];
+export let initialPageResults = [];
 
 /** Extracts the `initialPageResults` (0 - 36 `BOOKS_PER_PAGE`) before the user clicks 'show more'.
  * @param {object} object - The object that you want to extract the initial results from.
@@ -175,151 +176,87 @@ renderBookList(initialPageResults, bookListFragment);
 
 */
 
-// let activeBook = "";
+let activeBook = "";
 
-// const bookPreviewFactory = () => {
+const bookPreviewFactory = () => {
   
 
-//   /** Identifies the `activeBook` the user has clicked on to view the preview.
-//   * @param {target} event - The event target that the user has clicked on.
-//   */
-//   const identifyBook = (event) => {
+  /** Identifies the `activeBook` the user has clicked on to view the preview.
+  * @param {target} event - The event target that the user has clicked on.
+  */
+  const identifyBook = (event) => {
 
-//   /** `element` checks for the closest element that was clicked on which includes "[book-id]", returns true or false. */
-//   let element = event.target.closest("[book-id]");
-//   /** `previewId` is a ternary that checks if `element` is truthy, if so it gets the id attribute.*/
-//   let previewId = element ? element.getAttribute("book-id") : "";
+  /** `element` checks for the closest element that was clicked on which includes "[book-id]", returns true or false. */
+  let element = event.target.closest("[book-id]");
+  /** `previewId` is a ternary that checks if `element` is truthy, if so it gets the id attribute.*/
+  let previewId = element ? element.getAttribute("book-id") : "";
     
       
     
-//   /** The below for...of loop loops through each book in the `books` array
-//   * and checks to see if the id of the book strictly matches the id of the
-//   * book that was clicked on. If it matches it assigns the `singleBook` to the `activeBook` variable. */
-//   for (let singleBook of books) {
-//   if (singleBook.id === previewId) {
-//       activeBook = singleBook;
-//       }
-//     }
-//   }
+  /** The below for...of loop loops through each book in the `books` array
+  * and checks to see if the id of the book strictly matches the id of the
+  * book that was clicked on. If it matches it assigns the `singleBook` to the `activeBook` variable. */
+  for (let singleBook of books) {
+  if (singleBook.id === previewId) {
+      activeBook = singleBook;
+      }
+    }
+  }
 
-//   /** Populates the preview overlay with the `activeBook` data.
-//   * @param {object} activeBook - The object containing the data of the unique book that the user has clicked on
-//   */
-//   const populatePreview = (activeBook) => {
+  /** Populates the preview overlay with the `activeBook` data.
+  * @param {object} activeBook - The object containing the data of the unique book that the user has clicked on
+  */
+  const populatePreview = (activeBook) => {
 
-//   data.list.image.setAttribute("src", activeBook.image);
-//   data.list.blur.setAttribute("src", activeBook.image);
-//   data.list.title.innerHTML = activeBook.title;
-
-
-
-//   data.list.subtitle.innerHTML = `${authors[activeBook.author]} (${new Date(
-//     activeBook.published
-//   ).getFullYear()})`;
-//   data.list.description.innerHTML = activeBook.description;
+  data.list.image.setAttribute("src", activeBook.image);
+  data.list.blur.setAttribute("src", activeBook.image);
+  data.list.title.innerHTML = activeBook.title;
 
 
 
-//   data.list.description.style.overflowY = "auto";
-//   };
+  data.list.subtitle.innerHTML = `${authors[activeBook.author]} (${new Date(
+    activeBook.published
+  ).getFullYear()})`;
+  data.list.description.innerHTML = activeBook.description;
 
-//   return {
-//       identifyBook,
-//       populatePreview,
-//   }
 
-// }
 
-// const bookPreview = bookPreviewFactory();
-
-// // Created the book preview event listener which calls the above functions ↓
-
-// /** Book preview event listener, added to the whole list of books so that we don't need an event listener on each book element */
-// data.list.items.addEventListener("click", (event) => {
-//   // Call `identifyBook` to identify the book that was clicked on ↓
-
-//   bookPreview.identifyBook(event);
-
-//   // Call `populatePreview` to populate the preview with the book that was clicked on ↓
-
-//   bookPreview.populatePreview(activeBook);
-
-//   // Display the active book preview overlay to the user ↓
-
-//   data.list.active.show();
-// });
-
-// // Created the book preview close button event listener ↓
-
-// /** Preview overlay close button event listener */
-// data.list.close.addEventListener("click", (event) => {
-//   data.list.active.close();
-// });
-
-class BookPreviewComponent extends HTMLElement {
-  inner = this.attachShadow({mode: "closed"});
-
-  // Gets the tasks ready
-  constructor() {
-    super();
-    this.activeBook = "";
-    this.identifyBook = (event) => {
-
-      /** `element` checks for the closest element that was clicked on which includes "[book-id]", returns true or false. */
-      let element = event.target.closest("[book-id]");
-      /** `previewId` is a ternary that checks if `element` is truthy, if so it gets the id attribute.*/
-      let previewId = element ? element.getAttribute("book-id") : "";
-        
-          
-        
-      /** The below for...of loop loops through each book in the `books` array
-      * and checks to see if the id of the book strictly matches the id of the
-      * book that was clicked on. If it matches it assigns the `singleBook` to the `activeBook` variable. */
-      for (let singleBook of books) {
-      if (singleBook.id === previewId) {
-          this.activeBook = singleBook;
-          }
-        }
-    };
-
-    this.populatePreview = (activeBook) => {
-
-      data.list.image.setAttribute("src", this.activeBook.image);
-      data.list.blur.setAttribute("src", this.activeBook.image);
-      data.list.title.innerHTML = this.activeBook.title;
-    
-    
-    
-      data.list.subtitle.innerHTML = `${authors[this.activeBook.author]} (${new Date(
-        this.activeBook.published
-      ).getFullYear()})`;
-      data.list.description.innerHTML = this.activeBook.description;
-    
-    
-    
-      data.list.description.style.overflowY = "auto";
-    };
-    
+  data.list.description.style.overflowY = "auto";
   };
 
-  // Uses tasks
-  connectedCallback() {
-    
-    data.list.items.addEventListener("click", (event) => {
-    this.identifyBook(event);
-    this.populatePreview(this.activeBook);
-    data.list.active.show();
-    })
-
-    data.list.close.addEventListener("click", () => {
-    data.list.active.close();
-    });
+  return {
+      identifyBook,
+      populatePreview,
+  }
 
 }
 
-};
+const bookPreview = bookPreviewFactory();
 
-customElements.define('book-preview', BookPreviewComponent);
+// Created the book preview event listener which calls the above functions ↓
+
+/** Book preview event listener, added to the whole list of books so that we don't need an event listener on each book element */
+data.list.items.addEventListener("click", (event) => {
+  // Call `identifyBook` to identify the book that was clicked on ↓
+
+  bookPreview.identifyBook(event);
+
+  // Call `populatePreview` to populate the preview with the book that was clicked on ↓
+
+  bookPreview.populatePreview(activeBook);
+
+  // Display the active book preview overlay to the user ↓
+
+  data.list.active.show();
+});
+
+// Created the book preview close button event listener ↓
+
+/** Preview overlay close button event listener */
+data.list.close.addEventListener("click", (event) => {
+  data.list.active.close();
+});
+
 
 /*
 

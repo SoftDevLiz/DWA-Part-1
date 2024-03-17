@@ -1,5 +1,5 @@
 import { books } from "../JavaScript/data.js"
-import { data } from "../JavaScript/scripts.js";
+import { data, initialPageResults, bookListFragment } from "../JavaScript/scripts.js";
 
 const template = document.createElement("template")
 
@@ -72,8 +72,8 @@ template.innerHTML = /* html */ `
     </div>
 `;
 
-customElements.define('single-book-element',
-class createBookElement extends HTMLElement {
+
+export class renderBookList extends HTMLElement {
     inner = this.attachShadow({ mode: 'closed' });
    
     data = {
@@ -83,6 +83,7 @@ class createBookElement extends HTMLElement {
     }
 
     constructor () {
+      super();
         const createBookElement = ({ author, image, title, id}) => {
 
           const bookElement = document.createElement("button");
@@ -107,9 +108,18 @@ class createBookElement extends HTMLElement {
 
           }
 
+          const { content } = template;
+
+          this.inner.appendChild(content.cloneNode(true));
+
         }
   
     connectedCallback () {
 
+      renderBookList(initialPageResults, bookListFragment);
+      
+
     }
-})
+}
+
+customElements.define('render-book-list', renderBookList);
