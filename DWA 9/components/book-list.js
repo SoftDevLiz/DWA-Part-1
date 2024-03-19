@@ -80,14 +80,12 @@ export class bookList extends HTMLElement {
         image: undefined,
         title: undefined,
         author: undefined,
-
     }
 
     constructor() {
         super();
         const { content } = template;
         this.inner.appendChild(content.cloneNode(true))
-
     }
 
     connectedCallback () {
