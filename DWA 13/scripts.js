@@ -20,7 +20,7 @@ names.map((firstName) => console.log(firstName.length));
 
 // Using toSorted to sort all provinces alphabetically.
 
-provinces.toSorted((provinces) => console.log(provinces));
+console.log(provinces.toSorted());
 
 // Use filter to remove all provinces that have the word Cape in them. After filtering the array, return the amount of provinces left. The final value should be 3.
 
@@ -76,7 +76,7 @@ console.log(
      .map((food) => parseInt(food.price))
      .filter((price) => !isNaN(price))
      .reduce((acc, currentValue) => acc + currentValue, 0));
-     
+
 // Use reduce to concatenate all product names to create the following string: banana, mango, potato, avocado, coffee and tea.
 // Use reduce to calculate both the highest and lowest-priced items. The names should be returned as the following string: Highest: coffee. Lowest: banana.
 // Using only Object.entries and reduce recreate the object with the exact same values. However, the following object keys should be changed in the new array:
