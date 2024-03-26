@@ -1,18 +1,6 @@
 const provinces = ['Western Cape', 'Gauteng', 'Northern Cape', 'Eastern Cape', 'KwaZulu-Natal', 'Free State'];
 const names = ['Ashwin', 'Sibongile', 'Jan-Hendrik', 'Sifso', 'Shailen', 'Frikkie'];
 
-
-
-// Using only reduce, turn the above into an object that indicates the province of an individual. In other words:
-
-// {
-//     Ashwin: 'Western Cape',
-//       Sibongile: 'Gauteng',
-//     'Jan-Hendrik': 'Northern Cape',
-//       Sifso: 'Eastern Cape',
-//       Shailen: 'KwaZulu-Natal',
-//       Frikkie: 'Free State',
-
 // Use forEach to console log each name to the console. You are allowed to call console.log seven times.
 
 names.forEach((firstName) => console.log(firstName));
@@ -41,8 +29,51 @@ console.log(filterOutCape);
 
 // Create a boolean array by using map and some to determine whether a name contains an S character. The result should be [true, true, false, true, true, false]
 
-// names.map(firstName => console.log(firstName.toLowerCase().includes("s")));
-
 if (names.some(firstName => firstName.toLowerCase().includes('s'))) {
      console.log(names.map(namesWithS => namesWithS.toLowerCase().includes("s")))
 };
+
+// Using only reduce, turn the above into an object that indicates the province of an individual. In other words:
+
+const nameProvObj = names.reduce(
+     (obj, key, index) => {
+          obj[key] = provinces[index];
+          return obj;
+     }, 
+{});
+
+console.log(nameProvObj);
+
+// NEXT EXERCISES
+
+const products = [
+     { product: 'banana', 
+       price: "2" },
+     { product: 'mango', 
+       price: 6 },
+     { product: 'potato', 
+       price: ' ' },
+     { product: 'avocado', 
+       price: "8" },
+     { product: 'coffee', 
+       price: 10 },
+     { product: 'tea', 
+       price: '' }
+   ]
+
+// Use forEach to console.log each product name to the console.
+
+console.log(products.forEach((food) => console.log(food.product)));
+
+// Use filter to filter out products that have a name longer than 5 characters
+
+console.log(products.filter((food) => food.product.length > 5));
+
+// Using both filter and map. Convert all prices that are strings to numbers, and remove all products from the array that do not have prices. After this has been done then use reduce to calculate the combined price of all remaining products.
+
+
+// Use reduce to concatenate all product names to create the following string: banana, mango, potato, avocado, coffee and tea.
+// Use reduce to calculate both the highest and lowest-priced items. The names should be returned as the following string: Highest: coffee. Lowest: banana.
+// Using only Object.entries and reduce recreate the object with the exact same values. However, the following object keys should be changed in the new array:
+// product should be changed to name
+// price should be changed to cost
