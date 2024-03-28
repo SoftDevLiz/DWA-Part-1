@@ -29,7 +29,8 @@ console.log(filterOutCape);
 
 // Create a boolean array by using map and some to determine whether a name contains an S character. The result should be [true, true, false, true, true, false]
 
-if (names.some(firstName => firstName.toLowerCase().includes('s'))) {
+const anyHasS = names.some(firstName => firstName.toLowerCase().includes('s')) 
+if (anyHasS) {
      console.log(names.map(namesWithS => namesWithS.toLowerCase().includes("s")))
 };
 
@@ -78,7 +79,42 @@ console.log(
      .reduce((acc, currentValue) => acc + currentValue, 0));
 
 // Use reduce to concatenate all product names to create the following string: banana, mango, potato, avocado, coffee and tea.
+
+console.log(products.reduce((acc, current, index, array) => {
+  const isLastItem = index === array.length - 1
+  if (isLastItem) {
+    return acc + 'and ' + current.product;
+  } else {
+      return acc + current.product + ', ';
+  }
+}, ''))
+
 // Use reduce to calculate both the highest and lowest-priced items. The names should be returned as the following string: Highest: coffee. Lowest: banana.
+
+console.log(
+  ((products) => {
+    const result = products
+      .map(item => ({ product: item.product, price: parseInt(item.price) }))
+      .reduce((acc, current) => {
+        if (acc.highest === undefined || current.price > acc.highest) {
+          acc.highest = current.price;
+          acc.highestName = current.product;
+        }
+
+        if (acc.lowest === undefined || current.price < acc.lowest) {
+          acc.lowest = current.price;
+          acc.lowestName = current.product;
+        }
+
+        return acc;
+      }, { highest: undefined, lowest: undefined, highestName: undefined, lowestName: undefined });
+
+    return `Highest: ${result.highestName}. Lowest: ${result.lowestName}.`;
+  })(products)
+);
+
+
 // Using only Object.entries and reduce recreate the object with the exact same values. However, the following object keys should be changed in the new array:
 // product should be changed to name
 // price should be changed to cost
+
