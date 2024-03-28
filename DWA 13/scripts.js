@@ -113,8 +113,16 @@ console.log(
   })(products)
 );
 
-
 // Using only Object.entries and reduce recreate the object with the exact same values. However, the following object keys should be changed in the new array:
 // product should be changed to name
 // price should be changed to cost
 
+console.log(
+  ((products) => {
+    const newObject = Object.entries(products).reduce((acc, [index, { product, price }]) => {
+      acc[index] = { name: product, cost: price };
+      return acc;
+    }, {});
+    return newObject;
+  }
+)(products));
