@@ -1,5 +1,5 @@
-// const MAX_NUMBER = "";
-// const MIN_NUMBER = "";
+const MAX_NUMBER = 10;
+const MIN_NUMBER = -10;
 const STEP_AMOUNT = 2;
 
 const number = document.querySelector('[data-key="number"]');
@@ -13,45 +13,51 @@ isAdding: false,
 maximumReached: false,
 isSubtracting: false,
 minimumReached: false,
-hasReset: false,
-
 };
 
+console.log(state);
+
 const addHandler = () => {
-  state.normal = !state.normal;
+  state.normal = false;
   state.isAdding = !state.isAdding;
 
   const newValue = parseInt(number.value) + STEP_AMOUNT;
   number.value = newValue;
 
-  if (subtract.disabled === true) {
-    subtract.disabled = false;
-  }
-
   if (newValue >= MAX_NUMBER) {
+    state.maximumReached = !state.maximumReached;
     add.disabled = true;
   }
+
+  console.log(state);
+
 };
 
 const subtractHandler = () => {
+  state.normal = false;
   state.isSubtracting = !state.isSubtracting;
 
   const newValue = parseInt(number.value) - STEP_AMOUNT;
   number.value = newValue;
 
-  if (add.disabled === true) {
-    add.disabled = false;
-  }
-
   if (newValue <= MIN_NUMBER) {
+    state.minimumReached = !state.minimumReached;
     subtract.disabled = true;
   }
+
+  console.log(state);
 };
 
 const resetHandler = () => {
-  state.normal = true;
-  state.hasReset = !state.hasReset;
+  state.normal = true,
+  state.isAdding = false,
+  state.maximumReached = false,
+  state.isSubtracting = false,
+  state.minimumReached = false,
+  
   number.value = 0;
+
+  console.log(state);
 }
 
 add.addEventListener("click", addHandler);
