@@ -1,17 +1,64 @@
-const MAX_NUMBER = 10;
-const MIN_NUMBER = -10;
-const STEP_AMOUNT = 2;
+// const MAX_NUMBER = 10;
+// const MIN_NUMBER = -10;
+// const STEP_AMOUNT = 2;
 
 const number = document.querySelector('[data-key="number"]');
 const subtract = document.querySelector('[data-key="subtract"]');
 const add = document.querySelector('[data-key="add"]');
 const reset = document.querySelector('[data-key="reset"');
 
-const state = {
-normal: true,
-maximumReached: false,
-minimumReached: false,
+// const state = {
+// normal: true,
+// maximumReached: false,
+// minimumReached: false,
+// };
+
+const transition = (phase) => {
+  return () => {state.phase = phase};
 };
+
+const invalid = (task, phase) => () => {
+  throw new Error(`Can't perform ${task} in ${phase}.`);
+};
+
+const state = {
+  phase: 'idle',
+  context: {
+    MAX_NUMBER: 10,
+    MIN_NUMBER: -10,
+    STEP_AMOUNT: 2,
+  }
+}
+
+const actions = {
+    idle: {
+      add: transition('add'),
+      subtract: transition('subtract'),
+      reset: invalid('reset', 'idle')
+    },
+    add: {
+      add: "",
+      subtract: transition('subtract'),
+      reset: transition('idle'),
+    },
+    maxReached: {
+      add: invalid('add', 'maxReached'),
+      subtract: transition('subtract'),
+      reset: transition('reset'),
+    },
+    subtract: {
+      add: transition('add'),
+      subtract: "",
+      reset: transition('idle')
+    },
+    minReached: {
+      add: transition('add'),
+      subtract: invalid('subtract', 'minReached'),
+      reset: transition('idle'),
+    },
+}
+
+
 
 const addHandler = () => {
   state.normal = false;
