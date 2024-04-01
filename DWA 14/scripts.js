@@ -23,7 +23,7 @@ const invalid = (task, phase) => () => {
 
 const state = {
   phase: 'idle',
-  context: {
+  data: {
     MAX_NUMBER: 10,
     MIN_NUMBER: -10,
     STEP_AMOUNT: 2,
@@ -32,79 +32,41 @@ const state = {
 
 const actions = {
     idle: {
-      add: transition('add'),
-      subtract: transition('subtract'),
+      add: transition('adding'),
+      subtract: transition('subtracting'),
       reset: invalid('reset', 'idle')
     },
-    add: {
+    adding: {
       add: "",
-      subtract: transition('subtract'),
+      subtract: transition('subtracting'),
       reset: transition('idle'),
     },
     maxReached: {
-      add: invalid('add', 'maxReached'),
-      subtract: transition('subtract'),
-      reset: transition('reset'),
+      add: invalid('adding', 'maxReached'),
+      subtract: transition('subtracting'),
+      reset: transition('idle'),
     },
-    subtract: {
-      add: transition('add'),
+    subtracting: {
+      add: transition('adding'),
       subtract: "",
       reset: transition('idle')
     },
     minReached: {
-      add: transition('add'),
+      add: transition('adding'),
       subtract: invalid('subtract', 'minReached'),
       reset: transition('idle'),
     },
 }
 
-
-
 const addHandler = () => {
-  state.normal = false;
-  state.minimumReached = false;
 
-  number.value = parseInt(number.value) + STEP_AMOUNT;
-
-  if (number.value === MAX_NUMBER) {
-    state.maximumReached = true;
-    add.disabled = true;
-    subtract.disabled = false;
-  } else if (number.value > MIN_NUMBER) {
-    state.minimumReached = false;
-    subtract.disabled = false;
-  }
 };
 
 const subtractHandler = () => {
-  state.normal = false;
-  state.maximumReached = false;
 
-  number.value = parseInt(number.value) - STEP_AMOUNT;
-
-  if (number.value === MIN_NUMBER) {
-    state.minimumReached = true;
-    subtract.disabled = true;
-    add.disabled = false;
-  } else if (number.value < MAX_NUMBER) {
-    state.maximumReached = false;
-    add.disabled = false;
-  }
 };
 
 const resetHandler = () => {
-  state.normal = true,
-  state.maximumReached = false,
-  state.minimumReached = false,
-  number.value = 0;
-
-  if (add.disabled) {
-    add.disabled = false;
-  }
-
-  if (subtract.disabled) {
-    subtract.disabled = false;
-  }
 
 }
 
