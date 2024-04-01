@@ -13,8 +13,6 @@ maximumReached: false,
 minimumReached: false,
 };
 
-console.log(state);
-
 const addHandler = () => {
   state.normal = false;
   state.minimumReached = false;
@@ -25,8 +23,10 @@ const addHandler = () => {
     state.maximumReached = true;
     add.disabled = true;
     subtract.disabled = false;
+  } else if (number.value > MIN_NUMBER) {
+    state.minimumReached = false;
+    subtract.disabled = false;
   }
-  
 };
 
 const subtractHandler = () => {
@@ -39,23 +39,27 @@ const subtractHandler = () => {
     state.minimumReached = true;
     subtract.disabled = true;
     add.disabled = false;
+  } else if (number.value < MAX_NUMBER) {
+    state.maximumReached = false;
+    add.disabled = false;
   }
-
 };
 
 const resetHandler = () => {
   state.normal = true,
   state.maximumReached = false,
   state.minimumReached = false,
-
   number.value = 0;
 
-  console.log(state);
+  if (add.disabled) {
+    add.disabled = false;
+  }
+
+  if (subtract.disabled) {
+    subtract.disabled = false;
+  }
+
 }
-
-
-
-
 
 add.addEventListener("click", addHandler);
 subtract.addEventListener("click", subtractHandler);
