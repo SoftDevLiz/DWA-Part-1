@@ -3,13 +3,9 @@ import { state, number } from "../scripts.js";
 
 
 export class addButton extends LitElement {
-    static properties = {
-        countValue: {type: Number},
-    }
 
     constructor() {
         super();
-        this.countValue = 0;
     }
 
     render() {
@@ -20,15 +16,13 @@ export class addButton extends LitElement {
     }
 
     plus() {
-        this.countValue++;
+        state.data.countValue++;
         
-        number.value = this.countValue;
+        number.value = state.data.countValue;
 
-        console.log(this.countValue);
-        
-        if (this.countValue >= state.data.MAX_NUMBER) {
+        if (state.data.countValue >= state.data.MAX_NUMBER) {
             state.phase = "maxReached";
-            console.log(state.phase);
+            console.log(state.phase === "maxReached");
         }
     }
 }
