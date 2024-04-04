@@ -1,5 +1,5 @@
 
-const number = document.querySelector('[data-key="number"]');
+
 const subtract = document.querySelector('[data-key="subtract"]');
 const add = document.querySelector('[data-key="add"]');
 const reset = document.querySelector('[data-key="reset"');
@@ -20,14 +20,7 @@ const invalid = (task, phase) => () => {
   
   }
 
-const state = {
-  phase: 'idle',
-  data: {
-    MAX_NUMBER: 10,
-    MIN_NUMBER: -10,
-    STEP_AMOUNT: 2,
-  }
-}
+
 
 const actions = {
     idle: {
@@ -58,10 +51,17 @@ const actions = {
 }
 
 function addHandler() {
+
   if (state.phase === 'adding') {
     number.value = number.value + state.data.STEP_AMOUNT;
   }
    }; 
+
+   // keep count in state for single source of truth
+   
+   if (number.value > state.data.MAX_NUMBER) {
+
+   }
 
 add.addEventListener("click", () => actions[state.phase].handler());
 subtract.addEventListener("click", subtractHandler);
