@@ -1,4 +1,5 @@
 import { addButton } from "./components/add-button.js";
+import { subtractButton } from "./components/subtract-button.js";
 
 export const number = document.querySelector('[data-key="number"]');
 

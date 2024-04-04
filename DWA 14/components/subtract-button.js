@@ -1,5 +1,6 @@
 import { LitElement, html } from "../libs/lit-html.js";
-import { state } from "../scripts.js";
+import { state, number } from "../scripts.js";
+
 
 export class subtractButton extends LitElement {
     static properties = {
@@ -13,22 +14,24 @@ export class subtractButton extends LitElement {
 
     render() {
         return html 
-        `<sl-button ?disabled="${state.phase === "maxReached" ? true : false}" @click="${this.plus}" class="add_btn" variant="default" size="large" circle>
-            <sl-icon name="plus-lg" label="Settings"></sl-icon>
-        </sl-button>`
+        `<sl-button ?disabled="${state.phase === "minReached" ? true : false}" @click="${this.minus}" class="sub_btn" variant="default" size="large" circle>
+            <sl-icon name="dash-lg" label="Settings"></sl-icon>
+          </sl-button>`
     }
 
-    plus() {
-        this.countValue++;
+    minus() {
+        this.countValue--;
         
+        number.value = this.countValue;
+
         console.log(this.countValue);
         
-        if (this.countValue >= state.data.MAX_NUMBER) {
-            state.phase = "maxReached";
-            console.log(state.phase)
-
+        if (this.countValue <= state.data.MIN_NUMBER) {
+            state.phase = "minReached";
+            console.log(state.phase);
         }
     }
 }
 
-customElements.define("add-btn", addButton)
+customElements.define("subtract-btn", subtractButton)
+
