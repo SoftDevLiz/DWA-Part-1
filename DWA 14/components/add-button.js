@@ -1,7 +1,6 @@
 import { LitElement, html } from "../libs/lit-html.js";
 import { state, number } from "../scripts.js";
 
-
 export class addButton extends LitElement {
 
     constructor() {
@@ -10,9 +9,7 @@ export class addButton extends LitElement {
 
     render() {
         return html 
-        `<sl-button ?disabled="${state.phase === "maxReached" ? true : false}" @click="${this.plus}" class="add_btn" variant="default" size="large" circle>
-            <sl-icon name="plus-lg" label="Settings"></sl-icon>
-        </sl-button>`
+        `<button ?disabled="${state.phase === "maxReached" ? true : false}"  @click="${this.plus}"><i class="fas fa-plus"></i> Add</button>`
     }
 
     plus() {
@@ -22,9 +19,11 @@ export class addButton extends LitElement {
 
         if (state.data.countValue >= state.data.MAX_NUMBER) {
             state.phase = "maxReached";
-            console.log(state.phase === "maxReached");
         }
     }
 }
 
 customElements.define("add-btn", addButton)
+
+
+

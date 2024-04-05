@@ -10,9 +10,7 @@ export class subtractButton extends LitElement {
 
     render() {
         return html 
-        `<sl-button ?disabled="${state.phase === "minReached" ? true : false}" @click="${this.minus}" class="sub_btn" variant="default" size="large" circle>
-            <sl-icon name="dash-lg" label="Settings"></sl-icon>
-          </sl-button>`
+        `<button ?disabled="${state.phase === "minReached" ? true : false}"  @click="${this.minus}"><i class="fas fa-plus"></i> Minus</button>`
     }
 
     minus() {
@@ -28,4 +26,3 @@ export class subtractButton extends LitElement {
 }
 
 customElements.define("subtract-btn", subtractButton)
-

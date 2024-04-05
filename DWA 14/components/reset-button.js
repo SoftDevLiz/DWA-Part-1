@@ -10,7 +10,7 @@ export class resetButton extends LitElement {
 
     render() {
         return html 
-        `<sl-button @click="${this.reset}" size="large" pill>Reset</sl-button>`
+        `<button @click="${this.reset}"><i class="fas fa-plus"></i> Reset</button>`
     }
 
     reset() {
