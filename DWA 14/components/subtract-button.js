@@ -20,7 +20,6 @@ export class subtractButton extends LitElement {
 
         if (state.data.countValue <= state.data.MIN_NUMBER) {
             state.phase = "minReached";
-            console.log(state.phase === "minReached");
         }
     }
 }

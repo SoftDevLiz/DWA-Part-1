@@ -4,12 +4,12 @@ import { state, number } from "../scripts.js";
 export class addButton extends LitElement {
 
     constructor() {
-        super();
+        super(); 
     }
 
     render() {
         return html 
-        `<button ?disabled="${state.phase === "maxReached" ? true : false}"  @click="${this.plus}"><i class="fas fa-plus"></i> Add</button>`
+        `<button ?disabled="${state.phase === "maxReached" ? true : false}" @click="${this.plus}"><i class="fas fa-plus"></i> Add</button>`
     }
 
     plus() {
